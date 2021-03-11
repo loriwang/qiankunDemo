@@ -1,0 +1,6 @@
+vue-master/node_modules
+vue-module/node_modules
+vue-master/dist
+vue-module/dist
+/node_modules
+/dist
