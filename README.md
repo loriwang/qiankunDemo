@@ -1,7 +1,44 @@
-## 乾坤框架需要更改的点
+## 说明
+目前 `vue-master`为主项目`vue-module`为子项目
+
+## 乾坤框架主项目相关
+### 1.路由的嵌套匹配
+在嵌套的时候 主项目需要增加对子模块的匹配
+```js
+// vue-master/src/router/index.js
+const routes = [
+  {
+    path: "/",
+    name: "Layout",
+    component: Layout,
+    children: [
+      {
+        path: "home",
+        component: Home,
+      },
+      // 每个模块都要加上该匹配规则,否则会被重定向到主页
+      {
+        path: 'app1*'
+      }
+    ],
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+  },
+];
+```
+### 2.启动的位置
+因为嵌套的位置不同,所以要在不同的地方进行启动,此demo因为子项目是内嵌在`layout`中,所以 在`vue-master/src/layout/index.vue`进行乾坤框架的启动,不能直接在`main.js中进行启动`,否则会导致子项目无法渲染
+
+
+
+## 乾坤框架子项目相关
 
 ### 1.子项目devserver 开发的时候需要增加允许跨域的头
 ```js
+// vue-module/vue-config.js
     devServer: {
       port: 7081,
       disableHostCheck: true,
@@ -19,7 +56,7 @@
 子项目被嵌套的时候 需要增加自己的`baseurl`
 
 ```js
-// router.js
+// vue-module/src/router.js
 const createRouter = () => 
   new VueRouter({
     base: window.__POWERED_BY_QIANKUN__ ? '/app1': '/',
@@ -111,5 +148,21 @@ export async function unmount() {
   instance.$el.innerHTML = "";
   instance = null;
   router = null;
+}
+```
+
+
+### 6.子模块通信方式
+```js
+// vue-module/src/main.js
+// 从生命周期 mount 中获取通信方法，使用方式和 master 一致
+export function mount(props) {
+
+  props.onGlobalStateChange((state, prev) => {
+    // state: 变更后的状态; prev 变更前的状态
+    console.log(state, prev);
+  });
+    // 设置全局的方式,慎用
+  props.setGlobalState(state);
 }
 ```
