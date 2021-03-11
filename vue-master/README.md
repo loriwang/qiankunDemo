@@ -1,4 +1,4 @@
-# vue-giant-master
+# vue-master
 
 ## Project setup
 ```
