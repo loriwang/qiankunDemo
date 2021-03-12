@@ -4,8 +4,11 @@
       <i class="el-icon-s-operation" @click="$parent.toggleMenu()"></i>
     </div>
     <div>
+      <span class="color-red">测试主页面文字红色</span>
+    </div>
+    <div>
       <div>
-        <i class="el-icon-bell" @click="toHome"></i>
+        <i class="el-icon-bell" @click="toHome">home</i>
       </div>
       <div>
         <el-dropdown @command="handleCommand">

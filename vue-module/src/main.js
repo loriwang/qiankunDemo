@@ -4,6 +4,9 @@ import './public-path'
 import router from './router'
 Vue.config.productionTip = false
 
+// 引入样式
+import './style/index.css'
+
 let instance = null
 function render(props) {
   console.log(props);

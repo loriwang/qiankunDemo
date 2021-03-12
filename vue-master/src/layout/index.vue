@@ -6,7 +6,7 @@
       <!-- 如果是主项目的 走router-view -->
       <router-view class="root-view" v-if="showView" />
       <!--  -->
-      <div v-else id="root-view"></div>
+      <div id="root-view"></div>
     </div>
     <main-menu ref="mainMenu" class="main-menu" v-show="showMenu"></main-menu>
     <!-- <main-login ref="mainLogin"></main-login> -->
@@ -55,33 +55,36 @@ export default {
         Element,
       },
     };
-    let childApps = apps.map(app => {
-      app.props = commonProps
-      return app
-    })
-    console.log(childApps)
-    registerMicroApps(
-      childApps,
-      {
-        beforeLoad: [
-          (app) => {
-            console.log("before load", app);
-          },
-        ],
-        beforeMount: [
-          (app) => {
-            console.log("before mount", app);
-          },
-        ],
-        afterUnmount: [
-          (app) => {
-            console.log("after unload", app);
-          },
-        ],
-      }
-    );
+    let childApps = apps.map((app) => {
+      app.props = commonProps;
+      return app;
+    });
+    console.log(childApps);
+    registerMicroApps(childApps, {
+      beforeLoad: [
+        (app) => {
+          console.log("before load", app);
+        },
+      ],
+      beforeMount: [
+        (app) => {
+          console.log("before mount", app);
+        },
+      ],
+      afterUnmount: [
+        (app) => {
+          console.log("after unload", app);
+        },
+      ],
+    });
     // 启动微服务
-    start({ prefetch: true });
+    start({
+      prefetch: true,
+      sandbox: {
+        // strictStyleIsolation: true,
+        experimentalStyleIsolation: true
+      },
+    });
   },
   methods: {
     doOnWeb() {},

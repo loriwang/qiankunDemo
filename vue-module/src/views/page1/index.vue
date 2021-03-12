@@ -6,6 +6,7 @@
       placeholder="子页面使用elementui
   "
     ></el-input>
+    <p class="color-red">测试子应用文字红色</p>
   </div>
 </template>
 
