@@ -172,3 +172,26 @@ export function mount(props) {
 }
 ```
 
+### 8.样式隔离问题
+参考
+[!](https://qiankun.umijs.org/zh/api#startopts)
+在主项目进行start的时候, 设置`experimentalStyleIsolation` 为true
+`experimentalStyleIsolation` 被设置为 true 时，qiankun 会改写子应用所添加的样式为所有样式规则增加一个特殊的选择器规则来限定其影响范围，因此改写后的代码会表达类似为如下结构：
+
+```css
+// 假设应用名是 react16
+.app-main {
+  font-size: 14px;
+}
+
+div[data-qiankun-react16] .app-main {
+  font-size: 14px;
+}
+
+```
+针对于全局作用的样式会出现这个情况
+不过目前想到的是方式是 主项目引用全局作用的css 比如 `reset.css`,`serlize.css`,`element.css`库的样式,子项目在开发的时候,增加`share-module`,引用`share-module`中开发需要的样式等,
+主项目也引用`share-module`,用这样的方式解决通用的样式的问题
+
+### 9.共享组件库的问题
+目前在demo中进行了设置了共享`element-ui`组件库(主要是减少应用的体积),后续可能根据项目实际增加其他的组件库,在开发的时候目前的想法是增加一个`dev.js`的文件,该文件引用`element-ui`的js与css,引用`share-module`中开发必备的样式等,解决开发的问题
