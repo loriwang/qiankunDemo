@@ -28,7 +28,8 @@ export default {
   name: "Header",
   methods: {
     toHome() {
-      window.history.pushState({}, "", "/home");
+      this.$router.push('/home')
+      // window.history.pushState({}, "", "/home");
     },
     handleCommand(val) {
       if (val === "logout") {

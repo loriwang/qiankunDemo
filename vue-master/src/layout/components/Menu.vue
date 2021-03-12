@@ -8,6 +8,7 @@
       </div>
       <div>
         <ul>
+          <li><router-link to="/home">home</router-link></li>
           <li><router-link to="/app1/">app1</router-link></li>
           <li><router-link to="/app1/page1">app1-page1</router-link></li>
           <li><router-link to="/app1/page2">app1-page2</router-link></li>
