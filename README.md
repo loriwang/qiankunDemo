@@ -151,8 +151,13 @@ export async function unmount() {
 }
 ```
 
+### 6.图片及字体文件图片加载404
+[!](https://qiankun.umijs.org/zh/faq#%E5%BE%AE%E5%BA%94%E7%94%A8%E6%89%93%E5%8C%85%E4%B9%8B%E5%90%8E-css-%E4%B8%AD%E7%9A%84%E5%AD%97%E4%BD%93%E6%96%87%E4%BB%B6%E5%92%8C%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD-404)
+原因是 `qiankun` 将外链样式改成了内联样式，但是字体文件和背景图片的加载路径是相对路径。
 
-### 6.子模块通信方式
+而 `css` 文件一旦打包完成，就无法通过动态修改 publicPath 来修正其中的字体文件和背景图片的路径。
+
+### 7.子模块通信方式
 ```js
 // vue-module/src/main.js
 // 从生命周期 mount 中获取通信方法，使用方式和 master 一致
@@ -166,3 +171,4 @@ export function mount(props) {
   props.setGlobalState(state);
 }
 ```
+
